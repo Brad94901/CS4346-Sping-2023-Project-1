@@ -4,5 +4,5 @@
 #include <string>
 #include <vector>
 
-#define PoisonVarListSize 50 //however many unique symptoms there are, ie nausea, hypertension, ect.
-#define PoisonConcListSize 30
+#define PoisonVarListSize 8 //however many unique symptoms there are, ie nausea, hypertension, ect.
+#define PoisonConcListSize 31
