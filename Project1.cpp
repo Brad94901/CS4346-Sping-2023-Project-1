@@ -73,172 +73,248 @@ string backwards_chain(){ //driver function for backwards chain, returns the str
 	conclusion_list[30] = "Mamba";
 
 	//Populate the variable list, once again a long one, but we do have SOME overlap
-	VarList[0] = bool treatmentNeeded = false;
-	VarList[1] = bool evilRedhead = false;
-	VarList[2] = "";
-	VarList[3] = "";
-	VarList[4] = "";
-	VarList[5] = "";
-	VarList[6] = "";
-	VarList[7] = "";
-	VarList[8] = "";
-	VarList[9] = "";
-	VarList[10] = "";
-	VarList[11] = "";
-	VarList[12] = "";
-	VarList[13] = "";
-	VarList[14] = "";
-	VarList[15] = "";
-	VarList[16] = "";
-	VarList[17] = "";
-	VarList[18] = "";
-	VarList[19] = "";
-	VarList[20] = "";
-	VarList[21] = "";
-	VarList[22] = "";
-	VarList[23] = "";
-	VarList[24] = "";
-	VarList[25] = "";
-	VarList[26] = "";
-	VarList[27] = "";
-	VarList[28] = "";
-	VarList[29] = "";
-	VarList[30] = "";
+	VarList[0] = bool treatmentNeeded;
+	VarList[1] = bool evilRedhead;
+	VarList[2] = bool PoisonOrVenom; //True for poison false for venom
+	VarList[3] = bool drug;
+	VarList[4] = bool rodenticide;
+	VarList[5] = bool insecticide;
+	VarList[6] = bool single_puncture;
+	VarList[7] = bool double_puncture;
+	VarList[8] = bool vomiting;
+	VarList[9] = bool clammy;
+	VarList[10] = bool breathing;
+	VarList[11] = bool shaking;
+	VarList[12] = bool heartrate;
+	VarList[14] = bool hypertension;
+	VarList[15] = bool tingling;
+	VarList[16] = bool clotting;
+	VarList[17] = bool organDamage;
+	VarList[18] = bool brainSwelling;
+	VarList[19] = bool parasympathetic;
+	VarList[20] = bool nerves;
+	VarList[21] = bool asthma;
+	VarList[22] = bool skinIrritation;
+	VarList[23] = bool necrosis;
+	VarList[24] = bool latrodectism;
+	VarList[25] = bool edema;
+	VarList[26] = bool paralysis;
+	VarList[27] = bool cardiovascular;
+	VarList[28] = bool
+	VarList[29] = bool
+	VarList[30] = bool
 
 
 	//Populate the clause variable list, this is the LONG one, like really long, like really really really long. . . . . I'm tired.
 	//Populate from the lowest rule, delete any line that doesn't need instantiation since each conclusion STILL needs the space.
 	//Rule 1: No Treatment Needed
 	ClauseVarList[0] = treatmentNeeded;
+
 	//Rule 2: Poison Ivy
 	ClauseVarList[8] = treatmentNeeded;
-	ClauseVarList[9] = evilRedhead;
-	//Rule 3:
+	ClauseVarList[9] = PoisonOrVenom;
+	ClauseVarList[10] = evilRedhead;
+
+	//Rule 3: Drug Overdose
 	ClauseVarList[16] = treatmentNeeded;
-	ClauseVarList[17] = "";
-	ClauseVarList[18] = "";
-	ClauseVarList[19] = "";
-	ClauseVarList[20] = "";
-	ClauseVarList[21] = "";
-	ClauseVarList[22] = "";
-	ClauseVarList[23] = "";
-	//Rule 4:
+	ClauseVarList[17] = PoisonOrVenom;
+	ClauseVarList[18] = drug;
+
+	//Rule 4: Venom
 	ClauseVarList[24] = treatmentNeeded;
-	ClauseVarList[25] = "";
-	ClauseVarList[26] = "";
-	ClauseVarList[27] = "";
-	ClauseVarList[28] = "";
-	ClauseVarList[29] = "";
-	ClauseVarList[30] = "";
-	ClauseVarList[31] = "";
-	//Rule 5:
+	ClauseVarList[25] = PoisonOrVenom
+
+	//Rule 5: Poison
 	ClauseVarList[32] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 6:
+	ClauseVarList[33] = PoisonOrVenom;
+	
+	//Rule 6: Rodenticide
 	ClauseVarList[40] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 7:
+	ClauseVarList[41] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = rodenticide;
+	
+	//Rule 7: Insecticide
 	ClauseVarList[48] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 8:
+	ClauseVarList[49] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = rodenticide;
+	ClauseVarList[] = insecticide;
+	
+	//Rule 8: Arachnid
 	ClauseVarList[56] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 9:
+	ClauseVarList[57] = PoisonOrVenom;
+	ClauseVarList[] = single_puncture;
+
+	//Rule 9: Snake
 	ClauseVarList[64] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 10:
+	ClauseVarList[65] = PoisonOrVenom;
+	ClauseVarList[] = double_puncture;
+	
+	//Rule 10: Opiod
 	ClauseVarList[72] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 11:
+	ClauseVarList[73] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = clammy;
+	//Rule 11: Alcohol
 	ClauseVarList[80] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 12:
+	ClauseVarList[81] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = clammy;
+	ClauseVarList[] = breathing;
+	ClauseVarList[] = heartrate;
+	
+	//Rule 12: Cocaine
 	ClauseVarList[88] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 13:
+	ClauseVarList[89] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = clammy;
+	ClauseVarList[] = breathing;
+	ClauseVarList[] = heartrate;
+	
+	//Rule 13: Antidepressant
 	ClauseVarList[96] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 14:
+	ClauseVarList[97] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = clammy;
+	ClauseVarList[] = shaking;
+	
+	//Rule 14: Tiratricol
 	ClauseVarList[104] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 15:
+	ClauseVarList[105] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = clammy;
+	ClauseVarList[] = shaking;
+	ClauseVarList[] = hypertension;
+	
+	//Rule 15: Methamphetamine
 	ClauseVarList[112] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	//Rule 16:
+	ClauseVarList[113] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = clammy;
+	ClauseVarList[] = shaking;
+	ClauseVarList[] = hypertension;
+	
+	//Rule 16: Tetrodotoxin
 	ClauseVarList[120] = treatmentNeeded;
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
-	ClauseVarList[] = "";
+	ClauseVarList[121] = PoisonOrVenom;
+	ClauseVarList[] = drug;
+	ClauseVarList[] = tingling;
+	
+	//Rule 17: Warfarin
+	ClauseVarList[128] = treatmentNeeded;
+	ClauseVarList[129] = PoisonOrVenom;
+	ClauseVarList[] = rodenticide;
+	ClauseVarList[] = clotting;
+	
+	//Rule 18: Thallium
+	ClauseVarList[136] = treatmentNeeded;
+	ClauseVarList[137] = PoisonOrVenom;
+	ClauseVarList[] = rodenticide;
+	ClauseVarList[] = clotting;
+	ClauseVarList[] = organDamage;
+	
+	//Rule 19: Bromethalin
+	ClauseVarList[144] = treatmentNeeded;
+	ClauseVarList[145] = PoisonOrVenom;
+	ClauseVarList[] = rodenticide;
+	ClauseVarList[] = clotting;
+	ClauseVarList[] = brainSwelling;
+	
+	//Rule 20: Strychnine
+	ClauseVarList[152] = treatmentNeeded;
+	ClauseVarList[153] = PoisonOrVenom;
+	ClauseVarList[] = rodenticide;
+	ClauseVarList[] = clotting;
+	ClauseVarList[] = brainSwelling;
+	
+	//Rule 21: Carbamates
+	ClauseVarList[160] = treatmentNeeded;
+	ClauseVarList[161] = PoisonOrVenom;
+	ClauseVarList[] = rodenticide;
+	ClauseVarList[] = insecticide;
+	ClauseVarList[] = parasympathetic;
+	ClauseVarList[] = nerves;
+	
+	//Rule 22: Organophosphates
+	ClauseVarList[168] = treatmentNeeded;
+	ClauseVarList[169] = PoisonOrVenom;
+	ClauseVarList[] = parasympathetic;
+	ClauseVarList[] = nerves;
+	
+	//Rule 23: Pyrethrins
+	ClauseVarList[176] = treatmentNeeded;
+	ClauseVarList[177] = PoisonOrVenom;
+	ClauseVarList[] = parasympathetic;
+	ClauseVarList[] = asthma;
+	
+	//Rule 24: Rotenone
+	ClauseVarList[184] = treatmentNeeded;
+	ClauseVarList[185] = PoisonOrVenom;
+	ClauseVarList[] = parasympathetic;
+	ClauseVarList[] = asthma;
+	ClauseVarList[] = skinIrritation;
+
+	//Rule 25: Recluse Spider
+	ClauseVarList[192] = treatmentNeeded;
+	ClauseVarList[193] = PoisonOrVenom;
+	ClauseVarList[] = single_puncture;
+	ClauseVarList[] = necrosis;
+	
+	//Rule 26: Widow Spider
+	ClauseVarList[200] = treatmentNeeded;
+	ClauseVarList[201] = PoisonOrVenom;
+	ClauseVarList[] = single_puncture;
+	ClauseVarList[] = necrosis;
+	ClauseVarList[] = latrodectism;
+	
+	//Rule 27: Tarantula
+	ClauseVarList[208] = treatmentNeeded;
+	ClauseVarList[209] = PoisonOrVenom;
+	ClauseVarList[] = single_puncture;
+	ClauseVarList[] = necrosis;
+	ClauseVarList[] = latrodectism;
+	ClauseVarList[] = organDamage;
+	
+	//Rule 28: Deathstalker Scorpion
+	ClauseVarList[216] = treatmentNeeded;
+	ClauseVarList[217] = PoisonOrVenom;
+	ClauseVarList[] = single_puncture;
+	ClauseVarList[] = necrosis;
+	ClauseVarList[] = latrodectism;
+	ClauseVarList[] = edema;
+	
+	//Rule 29: Rattlesnake
+	ClauseVarList[224] = treatmentNeeded;
+	ClauseVarList[225] = PoisonOrVenom;
+	ClauseVarList[] = single_puncture;
+	ClauseVarList[] = double_puncture;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = paralysis;
+	ClauseVarList[] = clotting;
+	
+	//Rule 30: Cobra
+	ClauseVarList[232] = treatmentNeeded;
+	ClauseVarList[233] = PoisonOrVenom;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = paralysis;
+	ClauseVarList[] = necrosis;
+	
+	//Rule 31: Mamba
+	ClauseVarList[232] = treatmentNeeded;
+	ClauseVarList[233] = PoisonOrVenom;
+	ClauseVarList[] = vomiting;
+	ClauseVarList[] = paralysis;
+	ClauseVarList[] = necrosis;
+	ClauseVarList[] = cardiovascular;
+	
+
 
 	string diagnosis;
 	return diagnosis
