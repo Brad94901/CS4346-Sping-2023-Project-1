@@ -26,11 +26,12 @@ void forwards_chain(string conclusion);
 
 int main(){
 
-	string conclusion = backwards_chain()
-	forwards_chain(conclusion);	
+	int true_rules = backwards_chain()
+	diagnosis(true_rules);	
 }
 
-string backwards_chain(){ //driver function for backwards chain, returns the string conclusion.
+int backwards_chain(){ //driver function for backwards chain, returns the string conclusion.
+	int true_rules[2]; //when a rule is set to true and rule to array. true_rules[0] = false/ivy; true_rules[1] for poison/venom. true_rules[2] for 
 
 	//Populate the conclusion list, all 31 rules.
 	conclusion_list[0] = "No Treatment Needed";
@@ -311,12 +312,152 @@ string backwards_chain(){ //driver function for backwards chain, returns the str
 	ClauseVarList[245] = cardiovascular;
 	
 
-
-	string diagnosis;
-	return diagnosis
+	return true_rules;
 }
 
-int search_conclusion_list(string conclusion);{
+int diagnosis(int rule[2]){
+	string toxin_cat;
+	string treatment;
+	string diagnosis;
+	switch(rule[0]) { //Categorically determines the switch statement to be used.
+		case 0: 
+			diagnosis = "PATIENT WAS NOT EXPOSED TO A TOXIC SUBSTANCE";
+			treatment = "NO TREATMENT NEEDED";
+			break;
+		case 1:
+			diagnosis = "PATIENT WAS POINSED BY POISON IVY";
+			treatment = "CALL BATMAN";
+			break;
+		}
+	std::cout << diagnosis << endl;
+	std::cout << treatment << endl;
+	return 0;
+
+	switch(rule[1]){
+		case 2: //Drug overdose
+			toxin_cat = "DRUG OVERDOSE";
+			break;
+		case 3: //Venom
+			toxin_cat = "EXPOSED TO VENOM":
+			break;
+		case 4: //Poison
+			toxin_cat = "INJESTED OR INHALED POISON";
+			break;
+		case 5: //Rodenticide
+			toxin_cat = "EXPOSED TO RODENTICIDE":
+			break;
+		case 6: //Insecticide
+			toxin_cat = "EXPOSED TO INSECTICIDE";
+			break;
+		case 7: //Arachnid
+			toxin_cat = "PATIENT WAS BITTEN BY AN ARACHIND":
+			break;
+		case 8: //Snake
+			toxin_cat = "PATIENT WAS BITTEN BY A SNAKE";
+			break;
+		}
+	
+
+	switch(rule[2]) { //Categorically determines the switch statement to be used.
+		case 9: //Opiod
+			diagnosis = "PATIENT HAS OVERDOSED ON OPIODS"
+			treatment = 
+			break;
+		case 10://Alcohol
+			diagnosis = 
+			treatment = 
+			break;
+		case 11: //Cocaine
+			diagnosis = 
+			treatment = 
+			break;
+		case 12: //Antidepressant
+			diagnosis = 
+			treatment = 
+			break;
+		case 13: //Tiratricol
+			diagnosis = 
+			treatment = 
+			break;
+		case 14: //Methamphetamin
+			diagnosis = 
+			treatment = 
+			break;
+		case 15: //Tetrodotoxin
+			diagnosis = 
+			treatment = 
+			break;
+		case 16: //Warfarin
+			diagnosis = 
+			treatment = 
+			break;
+		case 17: //Thallium
+			diagnosis = 
+			treatment = 
+			break;
+		case 18: //Bromethalin
+			diagnosis = 
+			treatment = 
+			break;
+		case 19: //Strychnine
+			diagnosis = 
+			treatment = 
+			break;
+		case 20: //Carbamates
+			diagnosis = 
+			treatment = 
+			break;
+		case 21: //Organophosphates
+			diagnosis = 
+			treatment = 
+			break;
+		case 22: //Pyrethrins
+			diagnosis = 
+			treatment = 
+			break;
+		case 23: //Rotenone
+			diagnosis = 
+			treatment = 
+			break;
+		case 24: //Recluse
+			diagnosis = 
+			treatment = 
+			break;
+		case 25: //Widwo
+			diagnosis = 
+			treatment = 
+			break;
+		case 26: //Tarantula
+			diagnosis = 
+			treatment = 
+			break;
+		case 27: //Deathstalker
+			diagnosis = 
+			treatment = 
+			break;
+		case 28: //Rattlesnake
+			diagnosis = 
+			treatment = 
+			break;
+		case 29: //Cobra
+			diagnosis = 
+			treatment = 
+			break;
+		case 30: //Mamba
+			diagnosis = 
+			treatment = 
+			break;
+		}
+	
+
+	std::cout << toxin_cat << endl;
+	std::cout << diagnosis << endl;
+	std::cout << treatment << endl;
+	return 0;	
+
+}
+
+int search_conclusion_list(int conclusion);{
 	
 
 }
@@ -338,6 +479,3 @@ int validate_Ri(int rule, string conclusion);{
 
 }
 
-void forwards_chain(){ //driver fuctions for forwards chaing, returns void as our treatment plan will be displayed as part of the forwards chain.
-
-}
