@@ -6,31 +6,37 @@ Intelligent computer system design to diagnose toxi substances and poison, as we
 */
 
 #include "Project1.h"
+#include <iostream>
 #include <string>
 
 using namespace std;
 
-//Array declarations
-string conclusion_list[POICONCLISTSIZE];
-string VarList[POISONVARLISTSIZE]
-bool ClauseVarList[CLAUSEVARLISTSIZE]
+
 
 //Function declarations
 int search_conclusion_list(string conclusion);
 int rule_to_clause(int rule);
 int upddate_VarList(int clause);
 int validate_Ri(int rule, string conclusion);
-string backwards_chain();
+int backwards_chain();
 void forwards_chain(string conclusion);
+int diagnosis(int rule[2]);
 
 
 int main(){
 
-	int true_rules = backwards_chain()
+	//int true_rules = backwards_chain()
+	int true_rules[2] = {2, 10};
 	diagnosis(true_rules);	
 }
 
+
 int backwards_chain(){ //driver function for backwards chain, returns the string conclusion.
+
+	string conclusion_list[POICONCLISTSIZE];
+	string VarList[POISONVARLISTSIZE]
+	bool ClauseVarList[CLAUSEVARLISTSIZE]
+
 	int true_rules[2]; //when a rule is set to true and rule to array. true_rules[0] = false/ivy; true_rules[1] for poison/venom. true_rules[2] for 
 
 	//Populate the conclusion list, all 31 rules.
@@ -323,34 +329,32 @@ int diagnosis(int rule[2]){
 		case 0: 
 			diagnosis = "PATIENT WAS NOT EXPOSED TO A TOXIC SUBSTANCE";
 			treatment = "NO TREATMENT NEEDED";
-			break;
+			std::cout << diagnosis << endl;
+			std::cout << treatment << endl;
 		case 1:
 			diagnosis = "PATIENT WAS POINSED BY POISON IVY";
 			treatment = "CALL BATMAN";
-			break;
-		}
-	std::cout << diagnosis << endl;
-	std::cout << treatment << endl;
-	return 0;
+			std::cout << diagnosis << endl;
+			std::cout << treatment << endl;
+			return 0;
 
-	switch(rule[1]){
 		case 2: //Drug overdose
 			toxin_cat = "DRUG OVERDOSE";
 			break;
 		case 3: //Venom
-			toxin_cat = "EXPOSED TO VENOM":
+			toxin_cat = "EXPOSED TO VENOM";
 			break;
 		case 4: //Poison
 			toxin_cat = "INJESTED OR INHALED POISON";
 			break;
 		case 5: //Rodenticide
-			toxin_cat = "EXPOSED TO RODENTICIDE":
+			toxin_cat = "EXPOSED TO RODENTICIDE";
 			break;
 		case 6: //Insecticide
 			toxin_cat = "EXPOSED TO INSECTICIDE";
 			break;
 		case 7: //Arachnid
-			toxin_cat = "PATIENT WAS BITTEN BY AN ARACHIND":
+			toxin_cat = "PATIENT WAS BITTEN BY AN ARACHIND";
 			break;
 		case 8: //Snake
 			toxin_cat = "PATIENT WAS BITTEN BY A SNAKE";
@@ -358,94 +362,94 @@ int diagnosis(int rule[2]){
 		}
 	
 
-	switch(rule[2]) { //Categorically determines the switch statement to be used.
+	switch(rule[1]) { //Categorically determines the switch statement to be used.
 		case 9: //Opiod
-			diagnosis = "PATIENT HAS OVERDOSED ON OPIODS"
-			treatment = 
+			diagnosis = "PATIENT HAS OVERDOSED ON OPIODS";
+			treatment = "";
 			break;
 		case 10://Alcohol
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT IS SUFFERING FROM ALCOHOL POISONING";
+			treatment = "";
 			break;
 		case 11: //Cocaine
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS OVERDOSED ON COCAINE";
+			treatment = "";
 			break;
 		case 12: //Antidepressant
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS OVERDOSED ON ANTIDEPRESSANTS";
+			treatment = "";
 			break;
 		case 13: //Tiratricol
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS OVERDOSED ON TIRATRICOL";
+			treatment = "";
 			break;
 		case 14: //Methamphetamin
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS OVERDOSED ON METHAMPHETAMIN";
+			treatment = "";
 			break;
 		case 15: //Tetrodotoxin
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO TETRODOTOXIN";
+			treatment = "";
 			break;
 		case 16: //Warfarin
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO WARFARIN";
+			treatment = "";
 			break;
 		case 17: //Thallium
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO THALLIUM";
+			treatment = "";
 			break;
 		case 18: //Bromethalin
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO BROMETHALIN";
+			treatment = "";
 			break;
 		case 19: //Strychnine
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO STRYCHNINE";
+			treatment = "";
 			break;
 		case 20: //Carbamates
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO CARBAMATES";
+			treatment = "";
 			break;
 		case 21: //Organophosphates
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO ORGANOPHOSPHATES";
+			treatment = "";
 			break;
 		case 22: //Pyrethrins
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO PYRETHRINS";
+			treatment = "";
 			break;
 		case 23: //Rotenone
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN EXPOSED TO ROTENONE";
+			treatment = "";
 			break;
 		case 24: //Recluse
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN BITTEN BY A RECLUSE SPIDER";
+			treatment = "";
 			break;
-		case 25: //Widwo
-			diagnosis = 
-			treatment = 
+		case 25: //Widow
+			diagnosis = "PATIENT HAS BEEN BITTEN BY A WIDOW SPIDER";
+			treatment = "";
 			break;
 		case 26: //Tarantula
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN BITTEN BY A TARANTULA";
+			treatment = "";
 			break;
 		case 27: //Deathstalker
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN STUNG BY A DEATHSTALKER SCOPRION";
+			treatment = "";
 			break;
 		case 28: //Rattlesnake
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN BITTEN BY A RATTLESNAKE";
+			treatment = "";
 			break;
 		case 29: //Cobra
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN BITTEN BY A COBRA";
+			treatment = "";
 			break;
 		case 30: //Mamba
-			diagnosis = 
-			treatment = 
+			diagnosis = "PATIENT HAS BEEN BITTEN BY A MAMBA";
+			treatment = "";
 			break;
 		}
 	
@@ -457,6 +461,7 @@ int diagnosis(int rule[2]){
 
 }
 
+/*
 int search_conclusion_list(int conclusion);{
 	
 
@@ -477,5 +482,6 @@ int upddate_VarList(int clause);{
 int validate_Ri(int rule, string conclusion);{
 	//check clauses and return conclusion
 
-}
+}*/
+
 
