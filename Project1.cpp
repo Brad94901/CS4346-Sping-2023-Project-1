@@ -20,7 +20,7 @@ int upddate_VarList(int clause);
 int validate_Ri(int rule, string conclusion);
 int backwards_chain();
 void forwards_chain(string conclusion);
-int diagnosis(int rule[2]);
+int treatment(int rule[2]);
 
 
 int main(){
@@ -321,7 +321,7 @@ int backwards_chain(){ //driver function for backwards chain, returns the string
 	return true_rules;
 }
 
-int diagnosis(int rule[2]){
+int treatment(int rule[2]){
 	string toxin_cat;
 	string treatment;
 	string diagnosis;
