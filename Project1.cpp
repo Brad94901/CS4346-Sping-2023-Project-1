@@ -365,27 +365,27 @@ int treatment(int rule[2]){
 	switch(rule[1]) { //Categorically determines the switch statement to be used.
 		case 9: //Opiod
 			diagnosis = "PATIENT HAS OVERDOSED ON OPIODS";
-			treatment = "";
+			treatment = "TREAT THE PATIENT WITH NALOXONE";
 			break;
 		case 10://Alcohol
 			diagnosis = "PATIENT IS SUFFERING FROM ALCOHOL POISONING";
-			treatment = "";
+			treatment = "MONITOR THE PATIENT AND TREAT THE SYMPTOMS AS NEEDED";
 			break;
 		case 11: //Cocaine
 			diagnosis = "PATIENT HAS OVERDOSED ON COCAINE";
-			treatment = "";
+			treatment = "APPLY IV FLUIDS, MONITOR THE PATIENT AND TREAT THE SYMPTOMS AS NEEDED";
 			break;
 		case 12: //Antidepressant
 			diagnosis = "PATIENT HAS OVERDOSED ON ANTIDEPRESSANTS";
-			treatment = "";
+			treatment = "PUMP STOMACH AND PROVIDE ACTIVATED CHARCOAL, KEEP THE PATIENT HYDRATED";
 			break;
 		case 13: //Tiratricol
 			diagnosis = "PATIENT HAS OVERDOSED ON TIRATRICOL";
-			treatment = "";
+			treatment = "STOP VITAMIN D INTAKE AND RESTRICT DIETARY CALCIUM";
 			break;
 		case 14: //Methamphetamin
 			diagnosis = "PATIENT HAS OVERDOSED ON METHAMPHETAMIN";
-			treatment = "";
+			treatment = "PROVIDE ACTIVATED CHARCOAL AND LAXATIVE. IV FLUIDS TO TREAT SYMPTOMNS";
 			break;
 		case 15: //Tetrodotoxin
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO TETRODOTOXIN";
