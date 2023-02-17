@@ -366,91 +366,91 @@ int treatment(int rule[2]){
 	switch(rule[1]) { //Categorically determines the switch statement to be used.
 		case 9: //Opiod
 			diagnosis = "PATIENT HAS OVERDOSED ON OPIODS";
-			treatment = "";
+			treatment = "TREAT THE PATIENT WITH NALOXONE";
 			break;
 		case 10://Alcohol
 			diagnosis = "PATIENT IS SUFFERING FROM ALCOHOL POISONING";
-			treatment = "";
+			treatment = "MONITOR THE PATIENT AND TREAT THE SYMPTOMS AS NEEDED";
 			break;
 		case 11: //Cocaine
 			diagnosis = "PATIENT HAS OVERDOSED ON COCAINE";
-			treatment = "";
+			treatment = "APPLY IV FLUIDS, MONITOR THE PATIENT AND TREAT THE SYMPTOMS AS NEEDED";
 			break;
 		case 12: //Antidepressant
 			diagnosis = "PATIENT HAS OVERDOSED ON ANTIDEPRESSANTS";
-			treatment = "";
+			treatment = "PUMP STOMACH AND PROVIDE ACTIVATED CHARCOAL, KEEP THE PATIENT HYDRATED";
 			break;
 		case 13: //Tiratricol
 			diagnosis = "PATIENT HAS OVERDOSED ON TIRATRICOL";
-			treatment = "";
+			treatment = "STOP VITAMIN D INTAKE AND RESTRICT DIETARY CALCIUM";
 			break;
 		case 14: //Methamphetamin
 			diagnosis = "PATIENT HAS OVERDOSED ON METHAMPHETAMIN";
-			treatment = "";
+			treatment = "PROVIDE ACTIVATED CHARCOAL AND LAXATIVE. IV FLUIDS TO TREAT SYMPTOMNS";
 			break;
 		case 15: //Tetrodotoxin
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO TETRODOTOXIN";
-			treatment = "";
+			treatment = "PROVIDE RESPIRATORY AND SUPPORTIVE CARE UNTIL POISON IS EXCRETED IN THE URINE";
 			break;
 		case 16: //Warfarin
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO WARFARIN";
-			treatment = "";
+			treatment = "APPLY ACTIVATED CHARCOAL AND MONITOR, GIVE 10 MG OF VITAMIN K IF NEEDED";
 			break;
 		case 17: //Thallium
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO THALLIUM";
-			treatment = "";
+			treatment = "TREAT THE PATIENT WITH PRUSSIAN BLUE";
 			break;
 		case 18: //Bromethalin
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO BROMETHALIN";
-			treatment = "";
+			treatment = "PROVICE THE PATIENT WITH EMESIS AND ACTIVATED CHARCOAL";
 			break;
 		case 19: //Strychnine
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO STRYCHNINE";
-			treatment = "";
+			treatment = "DECONTAMINATION AND PROVIDE SUPPORTIVE CARE WITH IV FLUIDS";
 			break;
 		case 20: //Carbamates
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO CARBAMATES";
-			treatment = "";
+			treatment = "APPLY IV DOSES OF 1 TO 3 MG UNTIL STABILIZATION, CONTINUE MONITORING";
 			break;
 		case 21: //Organophosphates
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO ORGANOPHOSPHATES";
-			treatment = "";
+			treatment = "DECONTAMINATE AND   CLEAN PATIENT'S SKIN. ACTIVATE CHARCOAL AND MONITOR";
 			break;
 		case 22: //Pyrethrins
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO PYRETHRINS";
-			treatment = "";
+			treatment = "DECONTAMINATE AND CLEAN PATIENT'S SKIN. ADMINISTER VITAMIN E IF NEEDED";
 			break;
 		case 23: //Rotenone
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO ROTENONE";
-			treatment = "";
+			treatment = "DECONTAMINATE, ADMINISTER OXYGEN, GLUCOSE AND VITAMIN K3 IF NEEDED";
 			break;
 		case 24: //Recluse
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A RECLUSE SPIDER";
-			treatment = "";
+			treatment = "CLEAN AND ELEVATE THE BITE AREA, PROVIDE ANTIBIOTICS";
 			break;
 		case 25: //Widow
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A WIDOW SPIDER";
-			treatment = "";
+			treatment = "CLEAN THE WOUND, APPLY ANTIHISTAMINE IF NEEDED. TREAT WITH ANTIVENOM";
 			break;
 		case 26: //Tarantula
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A TARANTULA";
-			treatment = "";
+			treatment = "COOL COMPRESS WITH ICE PACKS, TREAT WITH PAIN RELIEVERS.";
 			break;
 		case 27: //Deathstalker
 			diagnosis = "PATIENT HAS BEEN STUNG BY A DEATHSTALKER SCOPRION";
-			treatment = "";
+			treatment = "APPLY LARGE DOSES OF ANTIVENOM AND MONITOR CLOSELY";
 			break;
 		case 28: //Rattlesnake
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A RATTLESNAKE";
-			treatment = "";
+			treatment = "CLEAN THE BITE AREA. TREAT THE PATIENT WITH ANTIBIOTICS AND ANTIVENOM";
 			break;
 		case 29: //Cobra
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A COBRA";
-			treatment = "";
+			treatment = "CLEAN THE BITE AREA. ADMINISTER ANTIBIOTICS AND ANTIVENOM, MONITOR THE PATIENT";
 			break;
 		case 30: //Mamba
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A MAMBA";
-			treatment = "";
+			treatment = "PROVIDE RESPIRATORY SUPPORT AND ADMINISTER ANTIVENOM IMMEDIATELY";
 			break;
 		}
 	
