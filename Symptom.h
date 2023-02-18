@@ -2,11 +2,12 @@
 
 using namespace std;
 
-struct Symptom {
+class Symptom {
 public:
 	string name;
-	bool status = false;
+	bool status = true;
 
 	void init(string);
+	string getstr();
 
 };

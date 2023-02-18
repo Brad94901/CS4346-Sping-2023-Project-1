@@ -1,7 +1,6 @@
 /*
 Project 1
 Brad Hughes, Zohair Khan
-
 Intelligent computer system design to diagnose toxi substances and poison, as well as recommend treatment based on the diagnosis.
 */
 
@@ -13,30 +12,20 @@ Intelligent computer system design to diagnose toxi substances and poison, as we
 using namespace std;
 
 
-
 //Function declarations
 int search_conclusion_list(string conclusion);
 int rule_to_clause(int rule);
 int upddate_VarList(int clause);
 int validate_Ri(int rule, string conclusion);
-int backwards_chain();
 void forwards_chain(string conclusion);
 int treatment(int rule[2]);
+bool teststr(string t);
 
+int main(){ //driver function for backwards chain, returns the string conclusion.
 
-int main(){
-
-	//int true_rules = backwards_chain()
-	int true_rules[2] = {2, 10};
-	treatment(true_rules);	
-}
-
-
-int backwards_chain(){ //driver function for backwards chain, returns the string conclusion.
-
-	string conclusion_list[POICONCLISTSIZE];
-	Symptom VarList[POISONVARLISTSIZE];
-	string ClauseVarList[CLAUSEVARLISTSIZE];
+	string conclusion_list[60];
+	Symptom VarList[60];
+	string ClauseVarList[500];
 
 	int true_rules = 0; //when a rule is set to true and rule to array. true_rules[0] = false/ivy; true_rules[1] for poison/venom. true_rules[2] for 
 
@@ -81,34 +70,64 @@ int backwards_chain(){ //driver function for backwards chain, returns the string
 	conclusion_list[30] = "Mamba";
 
 	//Populate the variable list, once again a long one, but we do have SOME overlap
-	VarList[0].init("treatmentNeeded");
-	VarList[1].init("evilRedhead");
-	VarList[2].init("PoisonOrVenom"); //True for poison false for venom
-	VarList[3].init("drug");
-	VarList[4].init("rodenticide");
-	VarList[5].init("insecticide");
-	VarList[6].init("single_puncture");
-	VarList[7].init("double_puncture");
-	VarList[8].init("vomiting");
-	VarList[9].init("clammy");
-	VarList[10].init("breathing");
-	VarList[11].init("shaking");
-	VarList[12].init("heartrate");
-	VarList[14].init("hypertension");
-	VarList[15].init("tingling");
-	VarList[16].init("clotting");
-	VarList[17].init("organDamage");
-	VarList[18].init("brainSwelling");
-	VarList[19].init("parasympathetic");
-	VarList[20].init("nerves");
-	VarList[21].init("asthma");
-	VarList[22].init("skinIrritation");
-	VarList[23].init("necrosis");
-	VarList[24].init("latrodectism");
-	VarList[25].init("edema");
-	VarList[26].init("paralysis");
-	VarList[27].init("cardiovascular");
+	VarList[1].init("");
+	VarList[2].init("");
+	VarList[3].init(""); //True for poison false for venom
+	VarList[4].init("");
+	VarList[5].init("");
+	VarList[6].init("");
+	VarList[7].init("");
+	VarList[8].init("");
+	VarList[9].init("");
+	VarList[10].init("");
+	VarList[11].init("");
+	VarList[12].init("");
+	VarList[13].init("");
+	VarList[14].init("");
+	VarList[15].init("");
+	VarList[16].init("");
+	VarList[17].init("");
+	VarList[18].init("");
+	VarList[19].init("");
+	VarList[20].init("");
+	VarList[21].init("");
+	VarList[22].init("");
+	VarList[23].init("");
+	VarList[24].init("");
+	VarList[25].init("");
+	VarList[26].init("");
+	VarList[27].init("");
 
+	VarList[1].name = "treatmentNeeded";
+	VarList[2].name = "evilRedhead";
+	VarList[3].name = "PoisonOrVenom"; //True for poison false for venom
+	VarList[4].name = "drug";
+	VarList[5].name = "rodenticide";
+	VarList[6].name = "insecticide";
+	VarList[7].name = "single_puncture";
+	VarList[8].name = "double_puncture";
+	VarList[9].name = "vomiting";
+	VarList[10].name = "clammy";
+	VarList[11].name = "breathing";
+	VarList[12].name = "shaking";
+	VarList[13].name = "heartrate";
+	VarList[14].name = "hypertension";
+	VarList[15].name = "tingling";
+	VarList[16].name = "clotting";
+	VarList[17].name = "organDamage";
+	VarList[18].name = "brainSwelling";
+	VarList[19].name = "parasympathetic";
+	VarList[20].name = "nerves";
+	VarList[21].name = "asthma";
+	VarList[22].name = "skinIrritation";
+	VarList[23].name = "necrosis";
+	VarList[24].name = "latrodectism";
+	VarList[25].name = "edema";
+	VarList[26].name = "paralysis";
+	VarList[27].name = "cardiovascular";
+
+	cout << VarList[1].name << endl;
+    
 	//Populate the clause variable list, this is the LONG one, like really long, like really really really long. . . . . I"m tired.
 	//Populate from the lowest rule, delete any line that doesn"t need instantiation since each conclusion STILL needs the space.
 	//Rule 1: No Treatment Needed
@@ -318,9 +337,10 @@ int backwards_chain(){ //driver function for backwards chain, returns the string
 	ClauseVarList[244] = "necrosis";
 	ClauseVarList[245] = "cardiovascular";
 	
-
+	cout << VarList[1].name << endl;
 	return true_rules;
 }
+
 
 int treatment(int rule[2]){
 	string toxin_cat;
@@ -465,24 +485,17 @@ int treatment(int rule[2]){
 /*
 int search_conclusion_list(int conclusion);{
 	
-
 }
-
 int rule_to_clause(int rule);{
 	int Ci = (rule - 1) * POISONVARLISTSIZE + 1;
-
 }
-
 int upddate_VarList(int clause);{
 	//maximum number of nodes a path can be +1 for a buffer
 	//populate based on path
 	//instantiate variables when needed
-
 }
-
 int validate_Ri(int rule, string conclusion);{
 	//check clauses and return conclusion
-
 }*/
 
 
