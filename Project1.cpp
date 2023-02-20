@@ -20,7 +20,17 @@ int upddate_VarList(int clause);
 int validate_Ri(int rule, string conclusion);
 void forwards_chain(string conclusion);
 int treatment(vector<int> rule);
-bool teststr(string t);
+bool check_sym(string symptom)
+
+
+int main(){
+
+	//int true_rules = backwards_chain()
+	int true_rules[2] = {2, 10};
+	treatment(true_rules);	
+}
+
+
 
 int main(){ //driver function for backwards chain, returns the string conclusion.
 
@@ -547,6 +557,31 @@ int upddate_VarList(int clause);{
 }
 int validate_Ri(int rule, string conclusion);{
 	//check clauses and return conclusion
+
 }*/
+
+}
+ */
+bool check_sym(string Symptom) {
+    bool testing = true; // Condition while true will run forever, type exit to turn false
+    string response;
+    while (testing == true) { // when testing is false then it stops running what is inside
+        cout << "Is your Symptom is " << Symptom << "?\n"; // Change this if you want
+        cin >> response; // User response
+        if (response == "Yes" || response == "YES" || response == "Y" || response == "yes" || response == "y") {
+            cout << "He said yes\n"; // Response is yes
+            return true;
+        }
+        else if (response == "No" || response == "NO" || response == "N" || response == "no" || response == "n") {
+            cout << "He said no\n"; // Response is no
+            return false;
+        }
+        else {
+            cout << "Not a proper response\n";
+        }
+    }
+}
+
+
 
 
