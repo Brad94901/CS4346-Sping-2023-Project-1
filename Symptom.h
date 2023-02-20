@@ -2,11 +2,9 @@
 
 using namespace std;
 
-struct Symptom {
+class Symptom {
 public:
 	string name;
-	bool status = false;
-
-	void init(string);
-
+	bool status = true;
+	bool instantiated = false;
 };
