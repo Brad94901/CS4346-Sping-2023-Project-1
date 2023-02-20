@@ -6,8 +6,5 @@ class Symptom {
 public:
 	string name;
 	bool status = true;
-
-	void init(string);
-	string getstr();
-
+	bool instantiated = false;
 };

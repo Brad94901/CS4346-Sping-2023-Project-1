@@ -8,6 +8,7 @@ Intelligent computer system design to diagnose toxi substances and poison, as we
 #include "Symptom.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -18,16 +19,16 @@ int rule_to_clause(int rule);
 int upddate_VarList(int clause);
 int validate_Ri(int rule, string conclusion);
 void forwards_chain(string conclusion);
-int treatment(int rule[2]);
+int treatment(vector<int> rule);
 bool teststr(string t);
 
 int main(){ //driver function for backwards chain, returns the string conclusion.
 
-	string conclusion_list[60];
-	Symptom VarList[60];
-	string ClauseVarList[500];
+	string conclusion_list[POICONCLISTSIZE];
+	Symptom VarList[POISONVARLISTSIZE];
+	string ClauseVarList[CLAUSEVARLISTSIZE];
 
-	int true_rules = 0; //when a rule is set to true and rule to array. true_rules[0] = false/ivy; true_rules[1] for poison/venom. true_rules[2] for 
+	vector<int>true_rules;//when a rule is set to true and rule to array. true_rules[0] = false/ivy; true_rules[1] for poison/venom. true_rules[2] for 
 
 	//Populate the conclusion list, all 31 rules.
 	conclusion_list[0] = "No Treatment Needed";
@@ -70,6 +71,8 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	conclusion_list[30] = "Mamba";
 
 	//Populate the variable list, once again a long one, but we do have SOME overlap
+	/*
+	VarList[0].init("");
 	VarList[1].init("");
 	VarList[2].init("");
 	VarList[3].init(""); //True for poison false for venom
@@ -96,11 +99,12 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	VarList[24].init("");
 	VarList[25].init("");
 	VarList[26].init("");
-	VarList[27].init("");
+	VarList[27].init("");*/
 
-	VarList[1].name = "treatmentNeeded";
-	VarList[2].name = "evilRedhead";
-	VarList[3].name = "PoisonOrVenom"; //True for poison false for venom
+	VarList[0].name = "treatment needed";
+	VarList[1].name = "exposure to an evil Redhead";
+	VarList[2].name = "poison";
+	VarList[3].name = "venom"; //True for poison false for venom
 	VarList[4].name = "drug";
 	VarList[5].name = "rodenticide";
 	VarList[6].name = "insecticide";
@@ -114,8 +118,8 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	VarList[14].name = "hypertension";
 	VarList[15].name = "tingling";
 	VarList[16].name = "clotting";
-	VarList[17].name = "organDamage";
-	VarList[18].name = "brainSwelling";
+	VarList[17].name = "organ damage";
+	VarList[18].name = "brain swelling";
 	VarList[19].name = "parasympathetic";
 	VarList[20].name = "nerves";
 	VarList[21].name = "asthma";
@@ -125,64 +129,63 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	VarList[25].name = "edema";
 	VarList[26].name = "paralysis";
 	VarList[27].name = "cardiovascular";
-
-	cout << VarList[1].name << endl;
+	VarList[28].name = "disturbed vision";
     
 	//Populate the clause variable list, this is the LONG one, like really long, like really really really long. . . . . I"m tired.
 	//Populate from the lowest rule, delete any line that doesn"t need instantiation since each conclusion STILL needs the space.
 	//Rule 1: No Treatment Needed
-	ClauseVarList[0] = "treatmentNeeded";
+	ClauseVarList[0] = "treatment needed";
 
 	//Rule 2: Poison Ivy
-	ClauseVarList[8] = "treatmentNeeded";
-	ClauseVarList[9] = "PoisonOrVenom";
-	ClauseVarList[10] = "evilRedhead";
+	ClauseVarList[8] = "treatment needed";
+	ClauseVarList[9] = "poison";
+	ClauseVarList[10] = "exposure to an evil Redhead";
 
 	//Rule 3: Drug Overdose
-	ClauseVarList[16] = "treatmentNeeded";
-	ClauseVarList[17] = "PoisonOrVenom";
+	ClauseVarList[16] = "treatment needed";
+	ClauseVarList[17] = "poison";
 	ClauseVarList[18] = "drug";
 
 	//Rule 4: Venom
-	ClauseVarList[24] = "treatmentNeeded";
-	ClauseVarList[25] = "PoisonOrVenom";
+	ClauseVarList[24] = "treatment needed";
+	ClauseVarList[25] = "venom";
 
 	//Rule 5: Poison
-	ClauseVarList[32] = "treatmentNeeded";
-	ClauseVarList[33] = "PoisonOrVenom";
+	ClauseVarList[32] = "treatment needed";
+	ClauseVarList[33] = "poison";
 	
 	//Rule 6: Rodenticide
-	ClauseVarList[40] = "treatmentNeeded";
-	ClauseVarList[41] = "PoisonOrVenom";
+	ClauseVarList[40] = "treatment needed";
+	ClauseVarList[41] = "poison";
 	ClauseVarList[42] = "drug";
 	ClauseVarList[43] = "rodenticide";
 	
 	//Rule 7: Insecticide
-	ClauseVarList[48] = "treatmentNeeded";
-	ClauseVarList[49] = "PoisonOrVenom";
+	ClauseVarList[48] = "treatment needed";
+	ClauseVarList[49] = "poison";
 	ClauseVarList[50] = "drug";
 	ClauseVarList[51] = "rodenticide";
 	ClauseVarList[52] = "insecticide";
 	
 	//Rule 8: Arachnid
-	ClauseVarList[56] = "treatmentNeeded";
-	ClauseVarList[57] = "PoisonOrVenom";
+	ClauseVarList[56] = "treatment needed";
+	ClauseVarList[57] = "venom";
 	ClauseVarList[58] = "single_puncture";
 
 	//Rule 9: Snake
-	ClauseVarList[64] = "treatmentNeeded";
-	ClauseVarList[65] = "PoisonOrVenom";
+	ClauseVarList[64] = "treatment needed";
+	ClauseVarList[65] = "venom";
 	ClauseVarList[66] = "double_puncture";
 	
 	//Rule 10: Opiod
-	ClauseVarList[72] = "treatmentNeeded";
-	ClauseVarList[73] = "PoisonOrVenom";
+	ClauseVarList[72] = "treatment needed";
+	ClauseVarList[73] = "poison";
 	ClauseVarList[74] = "drug";
 	ClauseVarList[75] = "vomiting";
 	ClauseVarList[76] = "clammy";
 	//Rule 11: "Alcohol"
-	ClauseVarList[80] = "treatmentNeeded";
-	ClauseVarList[81] = "PoisonOrVenom";
+	ClauseVarList[80] = "treatment needed";
+	ClauseVarList[81] = "poison";
 	ClauseVarList[82] = "drug";
 	ClauseVarList[83] = "vomiting";
 	ClauseVarList[84] = "clammy";
@@ -190,8 +193,8 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[86] = "heartrate";
 	
 	//Rule 12: Cocaine
-	ClauseVarList[88] = "treatmentNeeded";
-	ClauseVarList[89] = "PoisonOrVenom";
+	ClauseVarList[88] = "treatment needed";
+	ClauseVarList[89] = "poison";
 	ClauseVarList[90] = "drug";
 	ClauseVarList[91] = "vomiting";
 	ClauseVarList[92] = "clammy";
@@ -199,16 +202,16 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[94] = "heartrate";
 	
 	//Rule 13: Antidepressant
-	ClauseVarList[96] = "treatmentNeeded";
-	ClauseVarList[97] = "PoisonOrVenom";
+	ClauseVarList[96] = "treatment needed";
+	ClauseVarList[97] = "apoison";
 	ClauseVarList[98] = "drug";
 	ClauseVarList[99] = "vomiting";
 	ClauseVarList[100] = "clammy";
 	ClauseVarList[101] = "shaking";
 	
 	//Rule 14: Tiratricol
-	ClauseVarList[104] = "treatmentNeeded";
-	ClauseVarList[105] = "PoisonOrVenom";
+	ClauseVarList[104] = "treatment needed";
+	ClauseVarList[105] = "poison";
 	ClauseVarList[106] = "drug";
 	ClauseVarList[107] = "vomiting";
 	ClauseVarList[108] = "clammy";
@@ -216,8 +219,8 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[110] = "hypertension";
 	
 	//Rule 15: Methamphetamine
-	ClauseVarList[112] = "treatmentNeeded";
-	ClauseVarList[113] = "PoisonOrVenom";
+	ClauseVarList[112] = "treatment needed";
+	ClauseVarList[113] = "poison";
 	ClauseVarList[114] = "drug";
 	ClauseVarList[115] = "vomiting";
 	ClauseVarList[116] = "clammy";
@@ -225,97 +228,97 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[118] = "hypertension";
 	
 	//Rule 16: Tetrodotoxin
-	ClauseVarList[120] = "treatmentNeeded";
-	ClauseVarList[121] = "PoisonOrVenom";
+	ClauseVarList[120] = "treatment needed";
+	ClauseVarList[121] = "poison";
 	ClauseVarList[122] = "drug";
 	ClauseVarList[123] = "tingling";
 	
 	//Rule 17: Warfarin
-	ClauseVarList[128] = "treatmentNeeded";
-	ClauseVarList[129] = "PoisonOrVenom";
+	ClauseVarList[128] = "treatment needed";
+	ClauseVarList[129] = "poison";
 	ClauseVarList[130] = "rodenticide";
 	ClauseVarList[131] = "clotting";
 	
 	//Rule 18: Thallium
-	ClauseVarList[136] = "treatmentNeeded";
-	ClauseVarList[137] = "PoisonOrVenom";
+	ClauseVarList[136] = "treatment needed";
+	ClauseVarList[137] = "poison";
 	ClauseVarList[138] = "rodenticide";
 	ClauseVarList[139] = "clotting";
-	ClauseVarList[140] = "organDamage";
+	ClauseVarList[140] = "organ damage";
 	
 	//Rule 19: Bromethalin
-	ClauseVarList[144] = "treatmentNeeded";
-	ClauseVarList[145] = "PoisonOrVenom";
+	ClauseVarList[144] = "treatment needed";
+	ClauseVarList[145] = "poison";
 	ClauseVarList[146] = "rodenticide";
 	ClauseVarList[147] = "clotting";
-	ClauseVarList[148] = "brainSwelling";
+	ClauseVarList[148] = "brain swelling";
 	
 	//Rule 20: Strychnine
-	ClauseVarList[152] = "treatmentNeeded";
-	ClauseVarList[153] = "PoisonOrVenom";
+	ClauseVarList[152] = "treatment needed";
+	ClauseVarList[153] = "poison";
 	ClauseVarList[154] = "rodenticide";
 	ClauseVarList[155] = "clotting";
-	ClauseVarList[156] = "brainSwelling";
+	ClauseVarList[156] = "brain swelling";
 	
 	//Rule 21: Carbamates
-	ClauseVarList[160] = "treatmentNeeded";
-	ClauseVarList[161] = "PoisonOrVenom";
+	ClauseVarList[160] = "treatment needed";
+	ClauseVarList[161] = "apoison";
 	ClauseVarList[162] = "rodenticide";
 	ClauseVarList[163] = "insecticide";
 	ClauseVarList[164] = "parasympathetic";
 	ClauseVarList[165] = "nerves";
 	
 	//Rule 22: Organophosphates
-	ClauseVarList[168] = "treatmentNeeded";
-	ClauseVarList[169] = "PoisonOrVenom";
+	ClauseVarList[168] = "treatment needed";
+	ClauseVarList[169] = "poison";
 	ClauseVarList[170] = "parasympathetic";
 	ClauseVarList[171] = "nerves";
 	
 	//Rule 23: Pyrethrins
-	ClauseVarList[176] = "treatmentNeeded";
-	ClauseVarList[177] = "PoisonOrVenom";
+	ClauseVarList[176] = "treatment needed";
+	ClauseVarList[177] = "poison";
 	ClauseVarList[178] = "parasympathetic";
 	ClauseVarList[179] = "asthma";
 	
 	//Rule 24: Rotenone
-	ClauseVarList[184] = "treatmentNeeded";
-	ClauseVarList[185] = "PoisonOrVenom";
+	ClauseVarList[184] = "treatment needed";
+	ClauseVarList[185] = "poison";
 	ClauseVarList[186] = "parasympathetic";
 	ClauseVarList[187] = "asthma";
 	ClauseVarList[188] = "skinIrritation";
 
 	//Rule 25: Recluse Spider
-	ClauseVarList[192] = "treatmentNeeded";
-	ClauseVarList[193] = "PoisonOrVenom";
+	ClauseVarList[192] = "treatment needed";
+	ClauseVarList[193] = "venom";
 	ClauseVarList[194] = "single_puncture";
 	ClauseVarList[195] = "necrosis";
 	
 	//Rule 26: Widow Spider
-	ClauseVarList[200] = "treatmentNeeded";
-	ClauseVarList[201] = "PoisonOrVenom";
+	ClauseVarList[200] = "treatment needed";
+	ClauseVarList[201] = "venom";
 	ClauseVarList[202] = "single_puncture";
 	ClauseVarList[203] = "necrosis";
 	ClauseVarList[204] = "latrodectism";
 	
 	//Rule 27: Tarantula
-	ClauseVarList[208] = "treatmentNeeded";
-	ClauseVarList[209] = "PoisonOrVenom";
+	ClauseVarList[208] = "treatment needed";
+	ClauseVarList[209] = "venom";
 	ClauseVarList[210] = "single_puncture";
 	ClauseVarList[211] = "necrosis";
 	ClauseVarList[212] = "latrodectism";
-	ClauseVarList[213] = "organDamage";
+	ClauseVarList[213] = "organ damage";
 	
 	//Rule 28: Deathstalker Scorpion
-	ClauseVarList[216] = "treatmentNeeded";
-	ClauseVarList[217] = "PoisonOrVenom";
+	ClauseVarList[216] = "treatment needed";
+	ClauseVarList[217] = "venom";
 	ClauseVarList[218] = "single_puncture";
 	ClauseVarList[219] = "necrosis";
 	ClauseVarList[220] = "latrodectism";
 	ClauseVarList[221] = "edema";
 	
 	//Rule 29: Rattlesnake
-	ClauseVarList[224] = "treatmentNeeded";
-	ClauseVarList[225] = "PoisonOrVenom";
+	ClauseVarList[224] = "treatment needed";
+	ClauseVarList[225] = "venom";
 	ClauseVarList[226] = "single_puncture";
 	ClauseVarList[227] = "double_puncture";
 	ClauseVarList[228] = "vomiting";
@@ -323,26 +326,75 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[230] = "clotting";
 	
 	//Rule 30: Cobra
-	ClauseVarList[232] = "treatmentNeeded";
-	ClauseVarList[233] = "PoisonOrVenom";
+	ClauseVarList[232] = "treatment needed";
+	ClauseVarList[233] = "venom";
 	ClauseVarList[234] = "vomiting";
 	ClauseVarList[235] = "paralysis";
 	ClauseVarList[236] = "necrosis";
+	ClauseVarList[237] = "disturbed vision";
 	
 	//Rule 31: Mamba
-	ClauseVarList[240] = "treatmentNeeded";
-	ClauseVarList[241] = "PoisonOrVenom";
+	ClauseVarList[240] = "treatment needed";
+	ClauseVarList[241] = "venom";
 	ClauseVarList[242] = "vomiting";
 	ClauseVarList[243] = "paralysis";
 	ClauseVarList[244] = "necrosis";
 	ClauseVarList[245] = "cardiovascular";
 	
-	cout << VarList[1].name << endl;
-	return true_rules;
+	/*
+	for(int i = 0; i < 31; i++){ //loop to init necssary vars
+
+		if(i = 0){ //there three need to be insantiated first so it will always be done loop interation 0 since certain combinations will cause the program to close on the first iteration.
+			VarList[0].status  = check_sym(VarList[0].name); //treatment needed init
+			if(VarList[0].status = false){
+				true_rules.pop_back(0);
+				break;
+			}
+
+			VarList[1].status = check_sym(VarList[1].name) //poison ivy init, if either are true truement is stated and run is complete
+			if(VarList[1].status = true){
+				true_rules.pop_back(1);
+				break;
+			} 
+		
+
+		//check conditional statements based on symptoms
+
+			bool poisonVenomTemp = check_sym("an animal bite or sting")
+
+			switch(poisonVenomTemp){
+				case 0:{ //poison
+					VarList[2].instantiated = true;
+					VarList[2].status = true;
+					break;
+				}
+				case 1:{ //venom
+					VarList[3].instantiated = true;
+					VarList[3].status = true;
+					break;
+				}
+			}
+		} //end first loop iterations
+		//start with poison conditionals
+		if(VarList[2].status = true && VarList[2].status = true){ //if poison has been instantiated and is true
+
+		}
+
+		if(VarList[3].status = true && VarList[3].status = true){ //if venom has been instantiated and is true
+
+		}
+
+	}*/
+	
+	
+
+	//check all symptoms in VarList that are true against the ClauseVarList ie. if(all Clauses = true || null) add the rule number to the true_rules array.
+	true_rules.push_back(0);
+	treatment(true_rules);
 }
 
 
-int treatment(int rule[2]){
+int treatment(vector<int>rule){
 	string toxin_cat;
 	string treatment;
 	string diagnosis;
@@ -350,14 +402,11 @@ int treatment(int rule[2]){
 		case 0: 
 			diagnosis = "PATIENT WAS NOT EXPOSED TO A TOXIC SUBSTANCE";
 			treatment = "NO TREATMENT NEEDED";
-			std::cout << diagnosis << endl;
-			std::cout << treatment << endl;
+			break;
 		case 1:
 			diagnosis = "PATIENT WAS POINSED BY POISON IVY";
 			treatment = "CALL BATMAN";
-			std::cout << diagnosis << endl;
-			std::cout << treatment << endl;
-			return 0;
+			break;
 
 		case 2: //Drug overdose
 			toxin_cat = "DRUG OVERDOSE";
@@ -382,6 +431,7 @@ int treatment(int rule[2]){
 			break;
 		}
 	
+
 
 	switch(rule[1]) { //Categorically determines the switch statement to be used.
 		case 9: //Opiod
@@ -473,6 +523,7 @@ int treatment(int rule[2]){
 			treatment = "PROVIDE RESPIRATORY SUPPORT AND ADMINISTER ANTIVENOM IMMEDIATELY";
 			break;
 		}
+		
 	
 
 	std::cout << toxin_cat << endl;
