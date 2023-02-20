@@ -15,12 +15,9 @@ using namespace std;
 
 //Function declarations
 int search_conclusion_list(string conclusion);
-int rule_to_clause(int rule);
-int upddate_VarList(int clause);
-int validate_Ri(int rule, string conclusion);
 void forwards_chain(string conclusion);
 int treatment(vector<int> rule);
-bool teststr(string t);
+bool check_sym(string Symptom);
 
 int main(){ //driver function for backwards chain, returns the string conclusion.
 
@@ -71,35 +68,6 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	conclusion_list[30] = "Mamba";
 
 	//Populate the variable list, once again a long one, but we do have SOME overlap
-	/*
-	VarList[0].init("");
-	VarList[1].init("");
-	VarList[2].init("");
-	VarList[3].init(""); //True for poison false for venom
-	VarList[4].init("");
-	VarList[5].init("");
-	VarList[6].init("");
-	VarList[7].init("");
-	VarList[8].init("");
-	VarList[9].init("");
-	VarList[10].init("");
-	VarList[11].init("");
-	VarList[12].init("");
-	VarList[13].init("");
-	VarList[14].init("");
-	VarList[15].init("");
-	VarList[16].init("");
-	VarList[17].init("");
-	VarList[18].init("");
-	VarList[19].init("");
-	VarList[20].init("");
-	VarList[21].init("");
-	VarList[22].init("");
-	VarList[23].init("");
-	VarList[24].init("");
-	VarList[25].init("");
-	VarList[26].init("");
-	VarList[27].init("");*/
 
 	VarList[0].name = "treatment needed";
 	VarList[1].name = "exposure to an evil Redhead";
@@ -341,7 +309,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[244] = "necrosis";
 	ClauseVarList[245] = "cardiovascular";
 	
-	/*
+	
 	for(int i = 0; i < 31; i++){ //loop to init necssary vars
 
 		if(i = 0){ //there three need to be insantiated first so it will always be done loop interation 0 since certain combinations will cause the program to close on the first iteration.
@@ -384,7 +352,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 
 		}
 
-	}*/
+	}
 	
 	
 
@@ -533,20 +501,22 @@ int treatment(vector<int>rule){
 
 }
 
-/*
-int search_conclusion_list(int conclusion);{
-	
+bool check_sym(string Symptom) {
+    bool testing = true; // Condition while true will run forever, type exit to turn false
+    string response;
+    while (testing == true) { // when testing is false then it stops running what is inside
+        cout << "Is your Symptom is " << Symptom << "?\n"; // Change this if you want
+        cin >> response; // User response
+        if (response == "Yes" || response == "YES" || response == "Y" || response == "yes" || response == "y") {
+            cout << "He said yes\n"; // Response is yes
+            return true;
+        }
+        else if (response == "No" || response == "NO" || response == "N" || response == "no" || response == "n") {
+            cout << "He said no\n"; // Response is no
+            return false;
+        }
+        else {
+            cout << "Not a proper response\n";
+        }
+    }
 }
-int rule_to_clause(int rule);{
-	int Ci = (rule - 1) * POISONVARLISTSIZE + 1;
-}
-int upddate_VarList(int clause);{
-	//maximum number of nodes a path can be +1 for a buffer
-	//populate based on path
-	//instantiate variables when needed
-}
-int validate_Ri(int rule, string conclusion);{
-	//check clauses and return conclusion
-}*/
-
-
