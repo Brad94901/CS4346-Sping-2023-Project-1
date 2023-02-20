@@ -22,6 +22,7 @@ int validate_Ri(int rule, string conclusion);
 int backwards_chain();
 void forwards_chain(string conclusion);
 int treatment(int rule[2]);
+bool check_sym(string symptom)
 
 
 int main(){
@@ -483,6 +484,29 @@ int upddate_VarList(int clause);{
 int validate_Ri(int rule, string conclusion);{
 	//check clauses and return conclusion
 
-}*/
+}
+ */
+
+bool check_sym(string symptom);{
+bool function(string Symptom) {
+    bool testing = true; // Condition while true will run forever, type exit to turn false
+    string response;
+    while (testing == true) { // when testing is false then it stops running what is inside
+        cout << "Is your Symptom is " << Symptom << "?\n"; // Change this if you want
+        cin >> response; // User response
+        if (response == "Yes" || response == "YES" || response == "Y" || response == "yes" || response == "y") {
+            cout << "He said yes\n"; // Response is yes
+            return true;
+        }
+        else if (response == "No" || response == "NO" || response == "N" || response == "no" || response == "n") {
+            cout << "He said no\n"; // Response is no
+            return false;
+        }
+        else {
+            cout << "Not a proper response\n";
+        }
+    }
+}
+}
 
 
