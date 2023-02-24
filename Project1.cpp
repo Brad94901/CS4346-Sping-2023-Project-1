@@ -12,20 +12,20 @@ Intelligent computer system design to diagnose toxi substances and poison, as we
 
 using namespace std;
 
+string conclusion_list[POICONCLISTSIZE];
+Symptom VarList[POISONVARLISTSIZE];
+int ClauseVarList[CLAUSEVARLISTSIZE];
+int conclusion; // Derived Global Variable list
 
 //Function declarations
-int search_conclusion_list(string conclusion);
-void forwards_chain(string conclusion);
-int treatment(vector<int> rule);
+void search_conclusion_list(int con);
+int rule_to_clause(int Ri);
+void update_VL(int Ci);
+void validate_Ri(int Ri);
+void treatment(int con);
 bool check_sym(string Symptom);
 
 int main(){ //driver function for backwards chain, returns the string conclusion.
-
-	string conclusion_list[POICONCLISTSIZE];
-	Symptom VarList[POISONVARLISTSIZE];
-	string ClauseVarList[CLAUSEVARLISTSIZE];
-
-	vector<int>true_rules;//when a rule is set to true and rule to array. true_rules[0] = false/ivy; true_rules[1] for poison/venom. true_rules[2] for 
 
 	//Populate the conclusion list, all 31 rules.
 	conclusion_list[0] = "No Treatment Needed";
@@ -98,275 +98,290 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	VarList[26].name = "paralysis";
 	VarList[27].name = "cardiovascular";
 	VarList[28].name = "disturbed vision";
-    
+
 	//Populate the clause variable list, this is the LONG one, like really long, like really really really long. . . . . I"m tired.
 	//Populate from the lowest rule, delete any line that doesn"t need instantiation since each conclusion STILL needs the space.
 	//Rule 1: No Treatment Needed
-	ClauseVarList[0] = "treatment needed";
+	ClauseVarList[0] = 0;
 
 	//Rule 2: Poison Ivy
-	ClauseVarList[8] = "treatment needed";
-	ClauseVarList[9] = "poison";
-	ClauseVarList[10] = "exposure to an evil Redhead";
+	ClauseVarList[8] = 0;
+	ClauseVarList[9] = 1;
 
 	//Rule 3: Drug Overdose
-	ClauseVarList[16] = "treatment needed";
-	ClauseVarList[17] = "poison";
-	ClauseVarList[18] = "drug";
+	ClauseVarList[16] = 0;
+	ClauseVarList[17] = 2;
+	ClauseVarList[18] = 4;
 
 	//Rule 4: Venom
-	ClauseVarList[24] = "treatment needed";
-	ClauseVarList[25] = "venom";
+	ClauseVarList[24] = 0;
+	ClauseVarList[25] = 3;
 
 	//Rule 5: Poison
-	ClauseVarList[32] = "treatment needed";
-	ClauseVarList[33] = "poison";
+	ClauseVarList[32] = 0;
+	ClauseVarList[33] = 2;
 	
 	//Rule 6: Rodenticide
-	ClauseVarList[40] = "treatment needed";
-	ClauseVarList[41] = "poison";
-	ClauseVarList[42] = "drug";
-	ClauseVarList[43] = "rodenticide";
+	ClauseVarList[40] = 0;
+	ClauseVarList[41] = 2;
+	ClauseVarList[42] = 4;
+	ClauseVarList[43] = 5;
 	
 	//Rule 7: Insecticide
-	ClauseVarList[48] = "treatment needed";
-	ClauseVarList[49] = "poison";
-	ClauseVarList[50] = "drug";
-	ClauseVarList[51] = "rodenticide";
-	ClauseVarList[52] = "insecticide";
+	ClauseVarList[48] = 0;
+	ClauseVarList[49] = 2;
+	ClauseVarList[50] = 4;
+	ClauseVarList[51] = 5;
+	ClauseVarList[52] = 6;
 	
 	//Rule 8: Arachnid
-	ClauseVarList[56] = "treatment needed";
-	ClauseVarList[57] = "venom";
-	ClauseVarList[58] = "single_puncture";
+	ClauseVarList[56] = 0;
+	ClauseVarList[57] = 3;
+	ClauseVarList[58] = 7;
 
 	//Rule 9: Snake
-	ClauseVarList[64] = "treatment needed";
-	ClauseVarList[65] = "venom";
-	ClauseVarList[66] = "double_puncture";
+	ClauseVarList[64] = 0;
+	ClauseVarList[65] = 3;
+	ClauseVarList[66] = 8;
 	
 	//Rule 10: Opiod
-	ClauseVarList[72] = "treatment needed";
-	ClauseVarList[73] = "poison";
-	ClauseVarList[74] = "drug";
-	ClauseVarList[75] = "vomiting";
-	ClauseVarList[76] = "clammy";
+	ClauseVarList[72] = 0;
+	ClauseVarList[73] = 2;
+	ClauseVarList[74] = 4;
+	ClauseVarList[75] = 9;
+	ClauseVarList[76] = 10;
 	//Rule 11: "Alcohol"
-	ClauseVarList[80] = "treatment needed";
-	ClauseVarList[81] = "poison";
-	ClauseVarList[82] = "drug";
-	ClauseVarList[83] = "vomiting";
-	ClauseVarList[84] = "clammy";
-	ClauseVarList[85] = "breathing";
-	ClauseVarList[86] = "heartrate";
+	ClauseVarList[80] = 0;
+	ClauseVarList[81] = 2;
+	ClauseVarList[82] = 4;
+	ClauseVarList[83] = 9;
+	ClauseVarList[84] = 10;
+	ClauseVarList[85] = 11;
+	ClauseVarList[86] = 13;
 	
 	//Rule 12: Cocaine
-	ClauseVarList[88] = "treatment needed";
-	ClauseVarList[89] = "poison";
-	ClauseVarList[90] = "drug";
-	ClauseVarList[91] = "vomiting";
-	ClauseVarList[92] = "clammy";
-	ClauseVarList[93] = "breathing";
-	ClauseVarList[94] = "heartrate";
+	ClauseVarList[88] = 0;
+	ClauseVarList[89] = 2;
+	ClauseVarList[90] = 4;
+	ClauseVarList[91] = 9;
+	ClauseVarList[92] = 10;
+	ClauseVarList[93] = 11;
+	ClauseVarList[94] = 13;
 	
 	//Rule 13: Antidepressant
-	ClauseVarList[96] = "treatment needed";
-	ClauseVarList[97] = "apoison";
-	ClauseVarList[98] = "drug";
-	ClauseVarList[99] = "vomiting";
-	ClauseVarList[100] = "clammy";
-	ClauseVarList[101] = "shaking";
+	ClauseVarList[96] = 0;
+	ClauseVarList[97] = 2;
+	ClauseVarList[98] = 4;
+	ClauseVarList[99] = 9;
+	ClauseVarList[100] = 10;
+	ClauseVarList[101] = 12;
 	
 	//Rule 14: Tiratricol
-	ClauseVarList[104] = "treatment needed";
-	ClauseVarList[105] = "poison";
-	ClauseVarList[106] = "drug";
-	ClauseVarList[107] = "vomiting";
-	ClauseVarList[108] = "clammy";
-	ClauseVarList[109] = "shaking";
-	ClauseVarList[110] = "hypertension";
+	ClauseVarList[104] = 0;
+	ClauseVarList[105] = 2;
+	ClauseVarList[106] = 4;
+	ClauseVarList[107] = 9;
+	ClauseVarList[108] = 10;
+	ClauseVarList[109] = 12;
+	ClauseVarList[110] = 14;
 	
 	//Rule 15: Methamphetamine
-	ClauseVarList[112] = "treatment needed";
-	ClauseVarList[113] = "poison";
-	ClauseVarList[114] = "drug";
-	ClauseVarList[115] = "vomiting";
-	ClauseVarList[116] = "clammy";
-	ClauseVarList[117] = "shaking";
-	ClauseVarList[118] = "hypertension";
+	ClauseVarList[112] = 0;
+	ClauseVarList[113] = 2;
+	ClauseVarList[114] = 4;
+	ClauseVarList[115] = 9;
+	ClauseVarList[116] = 10;
+	ClauseVarList[117] = 12;
+	ClauseVarList[118] = 14;
 	
 	//Rule 16: Tetrodotoxin
-	ClauseVarList[120] = "treatment needed";
-	ClauseVarList[121] = "poison";
-	ClauseVarList[122] = "drug";
-	ClauseVarList[123] = "tingling";
+	ClauseVarList[120] = 0;
+	ClauseVarList[121] = 2;
+	ClauseVarList[122] = 4;
+	ClauseVarList[123] = 15;
 	
 	//Rule 17: Warfarin
-	ClauseVarList[128] = "treatment needed";
-	ClauseVarList[129] = "poison";
-	ClauseVarList[130] = "rodenticide";
-	ClauseVarList[131] = "clotting";
+	ClauseVarList[128] = 0;
+	ClauseVarList[129] = 2;
+	ClauseVarList[130] = 5;
+	ClauseVarList[131] = 16;
 	
 	//Rule 18: Thallium
-	ClauseVarList[136] = "treatment needed";
-	ClauseVarList[137] = "poison";
-	ClauseVarList[138] = "rodenticide";
-	ClauseVarList[139] = "clotting";
-	ClauseVarList[140] = "organ damage";
+	ClauseVarList[136] = 0;
+	ClauseVarList[137] = 2;
+	ClauseVarList[138] = 5;
+	ClauseVarList[139] = 16;
+	ClauseVarList[140] = 17;
 	
 	//Rule 19: Bromethalin
-	ClauseVarList[144] = "treatment needed";
-	ClauseVarList[145] = "poison";
-	ClauseVarList[146] = "rodenticide";
-	ClauseVarList[147] = "clotting";
-	ClauseVarList[148] = "brain swelling";
+	ClauseVarList[144] = 0;
+	ClauseVarList[145] = 2;
+	ClauseVarList[146] = 5;
+	ClauseVarList[147] = 16;
+	ClauseVarList[148] = 18;
 	
 	//Rule 20: Strychnine
-	ClauseVarList[152] = "treatment needed";
-	ClauseVarList[153] = "poison";
-	ClauseVarList[154] = "rodenticide";
-	ClauseVarList[155] = "clotting";
-	ClauseVarList[156] = "brain swelling";
+	ClauseVarList[152] = 0;
+	ClauseVarList[153] = 2;
+	ClauseVarList[154] = 5;
+	ClauseVarList[155] = 16;
+	ClauseVarList[156] = 18;
 	
 	//Rule 21: Carbamates
-	ClauseVarList[160] = "treatment needed";
-	ClauseVarList[161] = "apoison";
-	ClauseVarList[162] = "rodenticide";
-	ClauseVarList[163] = "insecticide";
-	ClauseVarList[164] = "parasympathetic";
-	ClauseVarList[165] = "nerves";
+	ClauseVarList[160] = 0;
+	ClauseVarList[161] = 2;
+	ClauseVarList[162] = 5;
+	ClauseVarList[163] = 6;
+	ClauseVarList[164] = 19;
+	ClauseVarList[165] = 20;
 	
 	//Rule 22: Organophosphates
-	ClauseVarList[168] = "treatment needed";
-	ClauseVarList[169] = "poison";
-	ClauseVarList[170] = "parasympathetic";
-	ClauseVarList[171] = "nerves";
+	ClauseVarList[168] = 0;
+	ClauseVarList[169] = 2;
+	ClauseVarList[170] = 19;
+	ClauseVarList[171] = 20;
 	
 	//Rule 23: Pyrethrins
-	ClauseVarList[176] = "treatment needed";
-	ClauseVarList[177] = "poison";
-	ClauseVarList[178] = "parasympathetic";
-	ClauseVarList[179] = "asthma";
+	ClauseVarList[176] = 0;
+	ClauseVarList[177] = 2;
+	ClauseVarList[178] = 19;
+	ClauseVarList[179] = 21;
 	
 	//Rule 24: Rotenone
-	ClauseVarList[184] = "treatment needed";
-	ClauseVarList[185] = "poison";
-	ClauseVarList[186] = "parasympathetic";
-	ClauseVarList[187] = "asthma";
-	ClauseVarList[188] = "skinIrritation";
+	ClauseVarList[184] = 0;
+	ClauseVarList[185] = 2;
+	ClauseVarList[186] = 19;
+	ClauseVarList[187] = 21;
+	ClauseVarList[188] = 22;
 
 	//Rule 25: Recluse Spider
-	ClauseVarList[192] = "treatment needed";
-	ClauseVarList[193] = "venom";
-	ClauseVarList[194] = "single_puncture";
-	ClauseVarList[195] = "necrosis";
+	ClauseVarList[192] = 0;
+	ClauseVarList[193] = 3;
+	ClauseVarList[194] = 7;
+	ClauseVarList[195] = 23;
 	
 	//Rule 26: Widow Spider
-	ClauseVarList[200] = "treatment needed";
-	ClauseVarList[201] = "venom";
-	ClauseVarList[202] = "single_puncture";
-	ClauseVarList[203] = "necrosis";
-	ClauseVarList[204] = "latrodectism";
+	ClauseVarList[200] = 0;
+	ClauseVarList[201] = 3;
+	ClauseVarList[202] = 7;
+	ClauseVarList[203] = 23;
+	ClauseVarList[204] = 24;
 	
 	//Rule 27: Tarantula
-	ClauseVarList[208] = "treatment needed";
-	ClauseVarList[209] = "venom";
-	ClauseVarList[210] = "single_puncture";
-	ClauseVarList[211] = "necrosis";
-	ClauseVarList[212] = "latrodectism";
-	ClauseVarList[213] = "organ damage";
+	ClauseVarList[208] = 0;
+	ClauseVarList[209] = 3;
+	ClauseVarList[210] = 7;
+	ClauseVarList[211] = 23;
+	ClauseVarList[212] = 24;
+	ClauseVarList[213] = 17;
 	
 	//Rule 28: Deathstalker Scorpion
-	ClauseVarList[216] = "treatment needed";
-	ClauseVarList[217] = "venom";
-	ClauseVarList[218] = "single_puncture";
-	ClauseVarList[219] = "necrosis";
-	ClauseVarList[220] = "latrodectism";
-	ClauseVarList[221] = "edema";
+	ClauseVarList[216] = 0;
+	ClauseVarList[217] = 3;
+	ClauseVarList[218] = 7;
+	ClauseVarList[219] = 23;
+	ClauseVarList[220] = 24;
+	ClauseVarList[221] = 25;
 	
 	//Rule 29: Rattlesnake
-	ClauseVarList[224] = "treatment needed";
-	ClauseVarList[225] = "venom";
-	ClauseVarList[226] = "single_puncture";
-	ClauseVarList[227] = "double_puncture";
-	ClauseVarList[228] = "vomiting";
-	ClauseVarList[229] = "paralysis";
-	ClauseVarList[230] = "clotting";
+	ClauseVarList[224] = 0;
+	ClauseVarList[225] = 3;
+	ClauseVarList[226] = 7;
+	ClauseVarList[227] = 8;
+	ClauseVarList[228] = 9;
+	ClauseVarList[229] = 26;
+	ClauseVarList[230] = 16;
 	
 	//Rule 30: Cobra
-	ClauseVarList[232] = "treatment needed";
-	ClauseVarList[233] = "venom";
-	ClauseVarList[234] = "vomiting";
-	ClauseVarList[235] = "paralysis";
-	ClauseVarList[236] = "necrosis";
-	ClauseVarList[237] = "disturbed vision";
+	ClauseVarList[232] = 0;
+	ClauseVarList[233] = 3;
+	ClauseVarList[234] = 9;
+	ClauseVarList[235] = 26;
+	ClauseVarList[236] = 23;
+	ClauseVarList[237] = 28;
 	
 	//Rule 31: Mamba
-	ClauseVarList[240] = "treatment needed";
-	ClauseVarList[241] = "venom";
-	ClauseVarList[242] = "vomiting";
-	ClauseVarList[243] = "paralysis";
-	ClauseVarList[244] = "necrosis";
-	ClauseVarList[245] = "cardiovascular";
+	ClauseVarList[240] = 0;
+	ClauseVarList[241] = 3;
+	ClauseVarList[242] = 9;
+	ClauseVarList[243] = 26;
+	ClauseVarList[244] = 23;
+	ClauseVarList[245] = 27;
 	
+
+	//true_rules.push_back(0);
+	for (int i = 0; i < 32; ++i){
+		search_conclusion_list(i);
+	}
 	
-	for(int i = 0; i < 31; i++){ //loop to init necssary vars
 
-		if(i = 0){ //there three need to be insantiated first so it will always be done loop interation 0 since certain combinations will cause the program to close on the first iteration.
-			VarList[0].status  = check_sym(VarList[0].name); //treatment needed init
-			if(VarList[0].status = false){
-				true_rules.pop_back(0);
-				break;
-			}
+	treatment(conclusion);
+}
 
-			VarList[1].status = check_sym(VarList[1].name) //poison ivy init, if either are true truement is stated and run is complete
-			if(VarList[1].status = true){
-				true_rules.pop_back(1);
-				break;
-			} 
-		
+void search_conclusion_list(int con){
 
-		//check conditional statements based on symptoms
+	int Ri = con; 
+	int Ci = rule_to_clause(Ri);
+	update_VL(Ci);
+	validate_Ri(Ri);
+}
 
-			bool poisonVenomTemp = check_sym("an animal bite or sting")
+int rule_to_clause(int Ri){
+	int Ci;
+	if(Ri == 0)
+		Ci == 0;
+	else
+		Ci = 8 * (Ri - 1);
 
-			switch(poisonVenomTemp){
-				case 0:{ //poison
-					VarList[2].instantiated = true;
-					VarList[2].status = true;
-					break;
-				}
-				case 1:{ //venom
-					VarList[3].instantiated = true;
-					VarList[3].status = true;
-					break;
-				}
-			}
-		} //end first loop iterations
-		//start with poison conditionals
-		if(VarList[2].status = true && VarList[2].status = true){ //if poison has been instantiated and is true
+	return Ci;
+}
 
-		}
+void update_VL(int Ci){
 
-		if(VarList[3].status = true && VarList[3].status = true){ //if venom has been instantiated and is true
+	for (int i = Ci; i <= Ci+8; i++){
 
+		//Ask symptom questions that HAVE NOT been instantiated, if any are return false after updating break and go to the next rule.
+		if(VarList[ClauseVarList[i]].instantiated == true) //if variable has been instantiated skip it
+			continue;
+
+		VarList[ClauseVarList[i]].status = check_sym(VarList[ClauseVarList[i]].name);
+		VarList[ClauseVarList[i]].instantiated = true;
+	}
+
+
+
+}
+
+void validate_Ri(int Ri){
+	//if all variables for a rule are true push the rule number onto true_rules.
+	int Ci = rule_to_clause(Ri);
+	bool flag = true;
+
+	for (int i = Ci; i <= Ci+8; i++){
+
+		if(VarList[ClauseVarList[i]].status == false){
+			cout << "CONCLUSION NOT REACHED" << endl;
+			flag = false;
+			break;
 		}
 
 	}
-	
-	
 
-	//check all symptoms in VarList that are true against the ClauseVarList ie. if(all Clauses = true || null) add the rule number to the true_rules array.
-	true_rules.push_back(0);
-	treatment(true_rules);
+	if(flag == true)
+		conclusion = Ri;
+
+
 }
 
 
-int treatment(vector<int>rule){
+
+
+void treatment(int con){
 	string toxin_cat;
 	string treatment;
 	string diagnosis;
-	switch(rule[0]) { //Categorically determines the switch statement to be used.
+
+	switch(con) { //False alarm shoudl ONLY pop if VarList[0].status == false so if rule[0] != 0, pop the false alarm thing so should be an . . . .easyish fix
 		case 0: 
 			diagnosis = "PATIENT WAS NOT EXPOSED TO A TOXIC SUBSTANCE";
 			treatment = "NO TREATMENT NEEDED";
@@ -397,11 +412,6 @@ int treatment(vector<int>rule){
 		case 8: //Snake
 			toxin_cat = "PATIENT WAS BITTEN BY A SNAKE";
 			break;
-		}
-	
-
-
-	switch(rule[1]) { //Categorically determines the switch statement to be used.
 		case 9: //Opiod
 			diagnosis = "PATIENT HAS OVERDOSED ON OPIODS";
 			treatment = "TREAT THE PATIENT WITH NALOXONE";
@@ -452,7 +462,7 @@ int treatment(vector<int>rule){
 			break;
 		case 21: //Organophosphates
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO ORGANOPHOSPHATES";
-			treatment = "DECONTAMINATE AND   CLEAN PATIENT'S SKIN. ACTIVATE CHARCOAL AND MONITOR";
+			treatment = "DECONTAMINATE AND CLEAN PATIENT'S SKIN. ACTIVATE CHARCOAL AND MONITOR";
 			break;
 		case 22: //Pyrethrins
 			diagnosis = "PATIENT HAS BEEN EXPOSED TO PYRETHRINS";
@@ -490,14 +500,14 @@ int treatment(vector<int>rule){
 			diagnosis = "PATIENT HAS BEEN BITTEN BY A MAMBA";
 			treatment = "PROVIDE RESPIRATORY SUPPORT AND ADMINISTER ANTIVENOM IMMEDIATELY";
 			break;
+			
 		}
-		
 	
 
 	std::cout << toxin_cat << endl;
 	std::cout << diagnosis << endl;
 	std::cout << treatment << endl;
-	return 0;	
+	
 
 }
 
@@ -505,7 +515,8 @@ bool check_sym(string Symptom) {
     bool testing = true; // Condition while true will run forever, type exit to turn false
     string response;
     while (testing == true) { // when testing is false then it stops running what is inside
-        cout << "Is your Symptom is " << Symptom << "?\n"; // Change this if you want
+    	cout << "--------------------------------------------------------------" << endl;
+        cout << "Is your symptom: " << Symptom << "?\n"; // Change this if you want
         cin >> response; // User response
         if (response == "Yes" || response == "YES" || response == "Y" || response == "yes" || response == "y") {
             cout << "He said yes\n"; // Response is yes

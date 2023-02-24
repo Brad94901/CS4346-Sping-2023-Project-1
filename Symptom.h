@@ -5,6 +5,6 @@ using namespace std;
 class Symptom {
 public:
 	string name;
-	bool status = true;
+	bool status = false;
 	bool instantiated = false;
 };
