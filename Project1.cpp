@@ -9,18 +9,19 @@ Intelligent computer system design to diagnose toxi substances and poison, as we
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
 string conclusion_list[POICONCLISTSIZE];
 Symptom VarList[POISONVARLISTSIZE];
 int ClauseVarList[CLAUSEVARLISTSIZE];
-int conclusion; // Derived Global Variable list
+vector<int> conclusion; // Derived Global Variable list
 
 //Function declarations
 void search_conclusion_list(int con);
 int rule_to_clause(int Ri);
-void update_VL(int Ci);
+void update_VL(int Ci, int Ri);
 void validate_Ri(int Ri);
 void treatment(int con);
 bool check_sym(string Symptom);
@@ -131,8 +132,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[48] = 0;
 	ClauseVarList[49] = 2;
 	ClauseVarList[50] = 4;
-	ClauseVarList[51] = 5;
-	ClauseVarList[52] = 6;
+	ClauseVarList[51] = 6;
 	
 	//Rule 8: Arachnid
 	ClauseVarList[56] = 0;
@@ -150,6 +150,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[74] = 4;
 	ClauseVarList[75] = 9;
 	ClauseVarList[76] = 10;
+
 	//Rule 11: "Alcohol"
 	ClauseVarList[80] = 0;
 	ClauseVarList[81] = 2;
@@ -308,22 +309,28 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[244] = 23;
 	ClauseVarList[245] = 27;
 	
-
+	
 	//true_rules.push_back(0);
+	conclusion.push_back(0);
+	
 	for (int i = 0; i < 32; ++i){
 		search_conclusion_list(i);
 	}
+
+	for(auto i: conclusion){
+		treatment(conclusion[i]);
+	}
+
 	
 
-	treatment(conclusion);
 }
 
 void search_conclusion_list(int con){
 
 	int Ri = con; 
 	int Ci = rule_to_clause(Ri);
-	update_VL(Ci);
-	validate_Ri(Ri);
+	update_VL(Ci, Ri);
+	//validate_Ri(Ri);
 }
 
 int rule_to_clause(int Ri){
@@ -331,21 +338,34 @@ int rule_to_clause(int Ri){
 	if(Ri == 0)
 		Ci == 0;
 	else
-		Ci = 8 * (Ri - 1);
+		Ci = 8 * (Ri);
 
 	return Ci;
 }
 
-void update_VL(int Ci){
+void update_VL(int Ci, int Ri){
+
+	bool iter = true;
 
 	for (int i = Ci; i <= Ci+8; i++){
 
 		//Ask symptom questions that HAVE NOT been instantiated, if any are return false after updating break and go to the next rule.
+		if(VarList[ClauseVarList[i]].instantiated == true && VarList[ClauseVarList[i]].status == false){
+			iter = false;
+			break;
+		}
+
 		if(VarList[ClauseVarList[i]].instantiated == true) //if variable has been instantiated skip it
 			continue;
 
 		VarList[ClauseVarList[i]].status = check_sym(VarList[ClauseVarList[i]].name);
 		VarList[ClauseVarList[i]].instantiated = true;
+
+	}
+
+	if(iter == true){
+		//cout << "here" << endl;
+		validate_Ri(Ri);
 	}
 
 
@@ -359,8 +379,8 @@ void validate_Ri(int Ri){
 
 	for (int i = Ci; i <= Ci+8; i++){
 
-		if(VarList[ClauseVarList[i]].status == false){
-			cout << "CONCLUSION NOT REACHED" << endl;
+		if(VarList[ClauseVarList[i]].instantiated == true && VarList[ClauseVarList[i]].status == false){
+			cout << "CONCLUSION NOT YET REACHED" << endl;
 			flag = false;
 			break;
 		}
@@ -368,7 +388,7 @@ void validate_Ri(int Ri){
 	}
 
 	if(flag == true)
-		conclusion = Ri;
+		conclusion.push_back(Ri);
 
 
 }
@@ -383,22 +403,25 @@ void treatment(int con){
 
 	switch(con) { //False alarm shoudl ONLY pop if VarList[0].status == false so if rule[0] != 0, pop the false alarm thing so should be an . . . .easyish fix
 		case 0: 
-			diagnosis = "PATIENT WAS NOT EXPOSED TO A TOXIC SUBSTANCE";
-			treatment = "NO TREATMENT NEEDED";
+			if(VarList[0].status == false){
+				diagnosis = "PATIENT WAS NOT EXPOSED TO A TOXIC SUBSTANCE";
+				treatment = "NO TREATMENT NEEDED";
+				break;
+			}
 			break;
 		case 1:
-			diagnosis = "PATIENT WAS POINSED BY POISON IVY";
+			diagnosis = "PATIENT WAS POISONED BY POISON IVY";
 			treatment = "CALL BATMAN";
 			break;
 
-		case 2: //Drug overdose
+		case 2: //Drug
 			toxin_cat = "DRUG OVERDOSE";
 			break;
 		case 3: //Venom
 			toxin_cat = "EXPOSED TO VENOM";
 			break;
 		case 4: //Poison
-			toxin_cat = "INJESTED OR INHALED POISON";
+			toxin_cat = "EXPOSED TO POISON";
 			break;
 		case 5: //Rodenticide
 			toxin_cat = "EXPOSED TO RODENTICIDE";
