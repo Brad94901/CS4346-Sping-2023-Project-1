@@ -323,7 +323,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	auto diff = end - start;
 	cout <<  "Execution time: "<< chrono::duration <double, milli> (diff).count() << " ms" << endl;
 
-	cout << "Memory Usage: " << sizeof(conclusion_list) + sizeof(VarList) + sizeof(ClauseVarList) << "MB" << endl;
+	cout << "Memory Usage: " << sizeof(conclusion_list) + sizeof(VarList) + sizeof(ClauseVarList) + sizeof(conclusion) << "MB" << endl;
 }
 
 void search_conclusion_list(int con){
