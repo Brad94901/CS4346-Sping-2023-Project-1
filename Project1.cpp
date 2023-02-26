@@ -9,7 +9,7 @@ Intelligent computer system design to diagnose toxi substances and poison, as we
 #include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
+#include <chrono>
 
 using namespace std;
 
@@ -27,6 +27,8 @@ void treatment(int con);
 bool check_sym(string Symptom);
 
 int main(){ //driver function for backwards chain, returns the string conclusion.
+
+	auto start = chrono::steady_clock::now();
 
 	//Populate the conclusion list, all 31 rules.
 	conclusion_list[0] = "No Treatment Needed";
@@ -111,8 +113,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 
 	//Rule 3: Drug Overdose
 	ClauseVarList[16] = 0;
-	ClauseVarList[17] = 2;
-	ClauseVarList[18] = 4;
+	ClauseVarList[17] = 4;
 
 	//Rule 4: Venom
 	ClauseVarList[24] = 0;
@@ -158,7 +159,6 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[83] = 9;
 	ClauseVarList[84] = 10;
 	ClauseVarList[85] = 11;
-	ClauseVarList[86] = 13;
 	
 	//Rule 12: Cocaine
 	ClauseVarList[88] = 0;
@@ -198,8 +198,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	//Rule 16: Tetrodotoxin
 	ClauseVarList[120] = 0;
 	ClauseVarList[121] = 2;
-	ClauseVarList[122] = 4;
-	ClauseVarList[123] = 15;
+	ClauseVarList[122] = 15;
 	
 	//Rule 17: Warfarin
 	ClauseVarList[128] = 0;
@@ -232,7 +231,6 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[160] = 0;
 	ClauseVarList[161] = 2;
 	ClauseVarList[162] = 5;
-	ClauseVarList[163] = 6;
 	ClauseVarList[164] = 19;
 	ClauseVarList[165] = 20;
 	
@@ -287,7 +285,6 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	//Rule 29: Rattlesnake
 	ClauseVarList[224] = 0;
 	ClauseVarList[225] = 3;
-	ClauseVarList[226] = 7;
 	ClauseVarList[227] = 8;
 	ClauseVarList[228] = 9;
 	ClauseVarList[229] = 26;
@@ -296,19 +293,20 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	//Rule 30: Cobra
 	ClauseVarList[232] = 0;
 	ClauseVarList[233] = 3;
-	ClauseVarList[234] = 9;
-	ClauseVarList[235] = 26;
-	ClauseVarList[236] = 23;
-	ClauseVarList[237] = 28;
+	ClauseVarList[234] = 8;
+	ClauseVarList[235] = 9;
+	ClauseVarList[236] = 26;
+	ClauseVarList[237] = 23;
+	ClauseVarList[238] = 28
 	
 	//Rule 31: Mamba
 	ClauseVarList[240] = 0;
 	ClauseVarList[241] = 3;
-	ClauseVarList[242] = 9;
-	ClauseVarList[243] = 26;
-	ClauseVarList[244] = 23;
-	ClauseVarList[245] = 27;
-	
+	ClauseVarList[242] = 8;
+	ClauseVarList[243] = 9;
+	ClauseVarList[244] = 26;
+	ClauseVarList[245] = 23;
+	ClauseVarList[246] = 27
 	
 	//true_rules.push_back(0);
 	conclusion.push_back(0);
@@ -321,8 +319,11 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 		treatment(conclusion[i]);
 	}
 
-	
+	auto end = chrono::steady_clock::now();
+	auto diff = end - start;
+	cout <<  "Execution time: "<< chrono::duration <double, milli> (diff).count() << " ms" << endl;
 
+	cout << "Memory Usage: " << sizeof(conclusion_list) + sizeof(VarList) + sizeof(ClauseVarList) << "MB" << endl;
 }
 
 void search_conclusion_list(int con){
@@ -527,9 +528,14 @@ void treatment(int con){
 		}
 	
 
-	std::cout << toxin_cat << endl;
-	std::cout << diagnosis << endl;
-	std::cout << treatment << endl;
+	if (toxin_cat != "") //handles whitespace
+		std::cout << toxin_cat << endl;
+
+	if (diagnosis != "")
+		std::cout << diagnosis << endl;
+
+	if (treatment != "")
+		std::cout << treatment << endl;
 	
 
 }
