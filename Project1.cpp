@@ -297,7 +297,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[235] = 9;
 	ClauseVarList[236] = 26;
 	ClauseVarList[237] = 23;
-	ClauseVarList[238] = 28
+	ClauseVarList[238] = 28;
 	
 	//Rule 31: Mamba
 	ClauseVarList[240] = 0;
@@ -306,7 +306,7 @@ int main(){ //driver function for backwards chain, returns the string conclusion
 	ClauseVarList[243] = 9;
 	ClauseVarList[244] = 26;
 	ClauseVarList[245] = 23;
-	ClauseVarList[246] = 27
+	ClauseVarList[246] = 27;
 	
 	//true_rules.push_back(0);
 	conclusion.push_back(0);
